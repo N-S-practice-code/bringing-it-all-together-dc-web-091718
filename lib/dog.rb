@@ -1,6 +1,6 @@
 require_relative "../config/environment.rb"
 
-class Student
+class Dog
   attr_accessor :id, :name, :grade
   
   
