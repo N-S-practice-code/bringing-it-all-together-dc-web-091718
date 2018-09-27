@@ -80,7 +80,7 @@ class Dog
   end
 
   def self.create(attributes)
-    dog=dog.new(name, breed)
+    dog=dog.new(attributes)
     dog.save
     dog
   end
