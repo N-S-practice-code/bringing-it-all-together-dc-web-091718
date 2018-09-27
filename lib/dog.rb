@@ -1,60 +1,60 @@
 require_relative "../config/environment.rb"
 
 class Dog
-  attr_accessor :id, :name, :grade
-  
-  
-  def initialize(name, grade)
+  attr_accessor :id, :name, :breed
+
+
+  def initialize(name, breed)
     @name = name
-    @grade=grade
+    @breed=breed
   end
 
   def self.new_from_db(row)
-    # create a new Student object given a row from the database
+    # create a new dog object given a row from the database
     new_dog = self.new(row[1], row[2])
-    new_student.id = row[0]
-    new_student 
+    new_dog.id = row[0]
+    new_dog
   end
 
   def self.all
     sql = <<-SQL
       SELECT *
-      FROM students
+      FROM dogs
     SQL
- 
+
     DB[:conn].execute(sql)
   end
 
   def self.find_by_name(name)
     sql = <<-SQL
       SELECT *
-      FROM students
+      FROM dogs
       WHERE name = ?
       LIMIT 1
     SQL
- 
+
     DB[:conn].execute(sql, name).map do |row|
       self.new_from_db(row)
     end.first
   end
-  
+
   def save
     return self.update if self.id
     sql = <<-SQL
-      INSERT INTO students (name, grade) 
+      INSERT INTO dogs (name, breed)
       VALUES (?, ?)
     SQL
 
-    DB[:conn].execute(sql, self.name, self.grade)
-    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
+    DB[:conn].execute(sql, self.name, self.breed)
+    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
   end
-  
+
   def self.create_table
     sql = <<-SQL
-    CREATE TABLE IF NOT EXISTS students (
+    CREATE TABLE IF NOT EXISTS dogs (
       id INTEGER PRIMARY KEY,
       name TEXT,
-      grade TEXT
+      breed TEXT
     )
     SQL
 
@@ -62,33 +62,33 @@ class Dog
   end
 
   def self.drop_table
-    sql = "DROP TABLE IF EXISTS students"
+    sql = "DROP TABLE IF EXISTS dogs"
     DB[:conn].execute(sql)
   end
-  
-  
-  def self.all_students_in_grade_9
+
+
+  def self.all_dogs_in_breed_9
     sql = <<-SQL
-    CREATE TABLE IF NOT EXISTS students (
+    CREATE TABLE IF NOT EXISTS dogs (
       id INTEGER PRIMARY KEY,
       name TEXT,
-      grade TEXT
+      breed TEXT
     )
     SQL
 
     DB[:conn].execute(sql)
   end
-  
-  def self.create(name, grade)
-    student=Student.new(name, grade)
-    student.save
-    student
+
+  def self.create(name, breed)
+    dog=dog.new(name, breed)
+    dog.save
+    dog
   end
-  
+
   def update
-    sql = "UPDATE dogs SET name = ?, grade = ? WHERE id = ?"
-    DB[:conn].execute(sql, self.name, self.grade, self.id)
+    sql = "UPDATE dogs SET name = ?, breed = ? WHERE id = ?"
+    DB[:conn].execute(sql, self.name, self.breed, self.id)
   end
-  
-  
+
+
 end
