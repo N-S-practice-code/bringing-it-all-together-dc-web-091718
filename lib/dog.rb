@@ -91,7 +91,7 @@ class Dog
   end
   def self.find_by_id(id)
 
-    Dog.new(DB[:conn].execute("SELECT * FROM dogs WHERE id = ? LIMIT 1", id))
+    puts DB[:conn].execute("SELECT * FROM dogs WHERE id = ? LIMIT 1", id)
   end
 
 
