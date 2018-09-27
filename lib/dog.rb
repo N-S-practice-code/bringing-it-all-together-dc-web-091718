@@ -4,9 +4,8 @@ class Dog
   attr_accessor :id, :name, :breed
 
 
-  def initialize(atributes)
-    @name = name
-    @breed=breed
+  def initialize(attributes)
+    attributes.each {|key, value| self.send(("#{key}="), value)}
   end
 
   def self.new_from_db(row)
