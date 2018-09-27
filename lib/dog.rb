@@ -93,6 +93,10 @@ class Dog
 
     Dog.new_from_db(DB[:conn].execute("SELECT * FROM dogs WHERE id = ? LIMIT 1", id)[0])
   end
+  
+  def self.find_or_create_by(attributes)
+    
+  end
 
 
 end
