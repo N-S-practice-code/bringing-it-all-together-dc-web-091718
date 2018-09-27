@@ -10,8 +10,8 @@ class Dog
 
   def self.new_from_db(row)
     # create a new dog object given a row from the database
-    new_dog = self.new(row[1], row[2])
-    new_dog.id = row[0]
+    new_dog = self.new(id: row[0],name: row[1],breed: row[2])
+    # new_dog.id = row[0]
     new_dog
   end
 
